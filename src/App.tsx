@@ -66,7 +66,7 @@ const AppContent: React.FC = () => {
     }
 
     // Dashboard view
-    if (user.role === 'admin') {
+    if (user.role === 'student') {
       return <AdminDashboard />;
     } else {
       return <StudentDashboard onStartExam={handleStartExam} />;
