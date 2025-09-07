@@ -32,7 +32,8 @@ const AuthForm: React.FC = () => {
         await signIn(formData.email, formData.password);
       }
     } catch (error) {
-      console.error('Auth error:', error);
+      // Error is already handled in the auth context with toast notifications
+      console.error('Authentication failed:', error);
     } finally {
       setLoading(false);
     }
@@ -172,15 +173,17 @@ const AuthForm: React.FC = () => {
         </form>
 
         <div className="mt-6 text-center">
-          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800">
-              <strong>Demo Mode:</strong> Try these credentials:
-            </p>
-            <p className="text-xs text-blue-600 mt-1">
-              Student: john@example.com / password<br/>
-              Admin: admin@example.com / password
-            </p>
-          </div>
+          {(!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL.includes('your_supabase')) && (
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Demo Mode:</strong> Try these credentials:
+              </p>
+              <p className="text-xs text-blue-600 mt-1">
+                Student: john@example.com / password<br/>
+                Admin: admin@example.com / password
+              </p>
+            </div>
+          )}
           
           <button
             onClick={() => setIsSignUp(!isSignUp)}

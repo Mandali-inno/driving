@@ -135,7 +135,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       password,
     });
 
-    if (error) throw error;
+    if (error) {
+      if (error.message === 'Invalid login credentials') {
+        toast.error('Invalid email or password. Please check your credentials and try again.');
+      } else {
+        toast.error(error.message || 'An error occurred during sign in');
+      }
+      throw error;
+    }
     toast.success('Signed in successfully!');
   };
 
