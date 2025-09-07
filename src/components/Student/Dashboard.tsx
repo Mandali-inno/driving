@@ -10,9 +10,9 @@ import {
   Calendar,
   CheckCircle
 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+// import { useAuth } from '../../contexts/AuthContext';
 import { supabase, Exam, Subscription } from '../../lib/supabase';
-import { mockExams, mockSubscription } from '../../lib/mockData';
+import { mockExams, mockSubscription, mockUsers } from '../../lib/mockData';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 
@@ -21,7 +21,8 @@ interface DashboardProps {
 }
 
 const StudentDashboard: React.FC<DashboardProps> = ({ onStartExam }) => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = mockUsers[0]; // Mock student user
   const [recentExams, setRecentExams] = useState<Exam[]>([]);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [stats, setStats] = useState({

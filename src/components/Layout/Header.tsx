@@ -1,17 +1,21 @@
 import React from 'react';
 import { LogOut, User, BookOpen, Shield } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+// import { useAuth } from '../../contexts/AuthContext';
 import { motion } from 'framer-motion';
+import { mockUsers } from '../../lib/mockData';
 
 const Header: React.FC = () => {
-  const { user, signOut } = useAuth();
+  // const { user, signOut } = useAuth();
+  // Mock user for testing
+  const user = mockUsers[0]; // Change to mockUsers[1] for admin user
 
   const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Sign out error:', error);
-    }
+    // try {
+    //   await signOut();
+    // } catch (error) {
+    //   console.error('Sign out error:', error);
+    // }
+    console.log('Sign out disabled for testing');
   };
 
   return (

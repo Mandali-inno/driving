@@ -11,11 +11,11 @@ import {
 } from 'lucide-react';
 import { supabase, Question, Answer } from '../../lib/supabase';
 import { mockQuestions } from '../../lib/mockData';
-import { useAuth } from '../../contexts/AuthContext';
+// import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
 const AdminDashboard: React.FC = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [questions, setQuestions] = useState<(Question & { answers: Answer[] })[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddQuestion, setShowAddQuestion] = useState(false);

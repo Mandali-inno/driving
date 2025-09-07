@@ -9,9 +9,9 @@ import {
   Flag,
   BarChart3
 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+// import { useAuth } from '../../contexts/AuthContext';
 import { supabase, Question, Answer, Exam } from '../../lib/supabase';
-import { mockQuestions } from '../../lib/mockData';
+import { mockQuestions, mockUsers } from '../../lib/mockData';
 import toast from 'react-hot-toast';
 
 interface ExamInterfaceProps {
@@ -21,7 +21,8 @@ interface ExamInterfaceProps {
 }
 
 const ExamInterface: React.FC<ExamInterfaceProps> = ({ mode, onExamComplete, onExit }) => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = mockUsers[0]; // Mock user for testing
   const [questions, setQuestions] = useState<(Question & { answers: Answer[] })[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});

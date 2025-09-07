@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+// import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Layout/Header';
-import AuthForm from './components/Auth/AuthForm';
+// import AuthForm from './components/Auth/AuthForm';
 import StudentDashboard from './components/Student/Dashboard';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ExamInterface from './components/Exam/ExamInterface';
 import ExamResults from './components/Exam/ExamResults';
+import { mockUsers } from './lib/mockData';
 
 type AppView = 'dashboard' | 'exam' | 'results';
 
 const AppContent: React.FC = () => {
-  const { user, loading } = useAuth();
+  // const { user, loading } = useAuth();
+  // Mock user for testing - you can change this to test different roles
+  const user = mockUsers[0]; // Student user, change to mockUsers[1] for admin
+  const loading = false;
+  
   const [currentView, setCurrentView] = useState<AppView>('dashboard');
   const [currentExamMode, setCurrentExamMode] = useState<'practice' | 'mock_test' | 'learning'>('practice');
   const [currentExamId, setCurrentExamId] = useState<string>('');
@@ -35,9 +40,9 @@ const AppContent: React.FC = () => {
     setCurrentView('exam');
   };
 
-  if (!user) {
-    return <AuthForm />;
-  }
+  // if (!user) {
+  //   return <AuthForm />;
+  // }
 
   const renderContent = () => {
     if (currentView === 'exam') {
@@ -79,9 +84,9 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
+    // <AuthProvider>
       <AppContent />
-    </AuthProvider>
+    // </AuthProvider>
   );
 };
 
