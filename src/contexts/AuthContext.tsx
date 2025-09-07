@@ -67,10 +67,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .from('users')
         .select('*')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
-      setUser(data);
+      setUser(data || null);
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
@@ -103,18 +103,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (error) throw error;
 
     if (data.user) {
-      // Create user profile
-      const { error: profileError } = await supabase
-        .from('users')
-        .insert({
-          id: data.user.id,
-          email,
-          full_name: userData.full_name || '',
-          phone_number: userData.phone_number || '',
-          role: userData.role || 'student',
-        });
+      // Create user profile - wait a moment for auth to be fully established
+      setTimeout(async () => {
+        try {
+          const { error: profileError } = await supabase
+            .from('users')
+            .insert({
+              id: data.user.id,
+              email,
+              full_name: userData.full_name || '',
+              phone_number: userData.phone_number || '',
+              role: userData.role || 'student',
+            });
 
-      if (profileError) throw profileError;
+          if (profileError) {
+            console.error('Profile creation error:', profileError);
+            toast.error('Account created but profile setup failed. Please contact support.');
+          }
+        } catch (err) {
+          console.error('Profile creation error:', err);
+          toast.error('Account created but profile setup failed. Please contact support.');
+        }
+      }, 1000);
       toast.success('Account created successfully!');
     }
   };
